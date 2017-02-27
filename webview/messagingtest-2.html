@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Messaging Test</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=320, user-scalable=no">
+  </head>
+  <body>
+    <p>(Page 2)Messages recieved from React Native: 0</p>
+    <p>(No messages)</p>
+    <button type="button">
+      Send message to React Native
+    </button>
+    <button type="button">
+      push to next Page
+    </button>
+    <button type="button">
+      pop to last Page
+    </button>
+  </body>
+  <script>
+    var messagesReceivedFromReactNative = 0;
+    document.addEventListener('message', function(e) {
+      messagesReceivedFromReactNative += 1;
+      document.getElementsByTagName('p')[0].innerHTML =
+        'Messages recieved from React Native: ' + messagesReceivedFromReactNative;
+      document.getElementsByTagName('p')[1].innerHTML = e.data;
+    });
+
+    document.getElementsByTagName('button')[0].addEventListener('click', function() {
+      window.postMessage('"Hello" from the web view');
+    });
+    document.getElementsByTagName('button')[1].addEventListener('click', function() {
+      window.postMessage('push');
+    });
+    document.getElementsByTagName('button')[2].addEventListener('click', function() {
+      window.postMessage('pop');
+    });
+  </script>
+</html>
